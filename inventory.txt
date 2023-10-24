@@ -1,0 +1,17 @@
+[test]
+testdev1  ansible_host=<>
+testdev2  ansible_host=<>
+testdev3  ansible_host=<>
+testdev4  ansible_host=<>
+
+[openldap_server]
+testdev1  ansible_host=<>
+
+[dummy_totp]
+testdev2  ansible_host=<>
+
+[sssd_client]
+testdev2  ansible_host=<>
+testdev3  ansible_host=<>
+testdev4  ansible_host=<>
+

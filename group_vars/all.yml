@@ -1,0 +1,13 @@
+
+debug_me: False
+fetch_pk_dir: /tmp/fetched/pubkeys
+fetch_totp_dir: /tmp/fetched/totp
+ldap_domain_name: <DOMAIN.COM>
+ldap_search_base: "dc={{ ldap_domain_name.split('.')[0] }},dc={{ ldap_domain_name.split('.')[1] }}"
+
+ldap_uri_host: 10.10.10.10
+ldap_auth:
+  bind_dn: cn=manager,{{ ldap_search_base }}
+  bind_pw: <ANSIBLE-VAULT-IT>
+
+
