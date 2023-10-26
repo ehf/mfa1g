@@ -20,3 +20,12 @@ roles:
   - src: https://github.com/ehf/dist-totp-data.git
     version: main
     name: dist-totp-data
+
+  - src: https://github.com/ehf/init-totp-data.git
+    version: main
+    name: init-totp-data
+
+  - src: https://github.com/ehf/enable-sshd-ldap-authkeys.git
+    version: main
+    name: enable-sshd-ldap-authkeys
+
