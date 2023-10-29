@@ -56,3 +56,10 @@
   roles:
     - { role: dist-totp-data, tags: dist-totp-data }
 
+- name: "Enable sss_ssh_authorizedkeys use"
+  hosts: sssd_client
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  gather_facts: true
+  roles:
+    - { role: enable-sshd-ldap-authkeys, tags: enable-sss-authkeys }
