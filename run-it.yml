@@ -1,19 +1,9 @@
 ---
 
-# the following is required: 
-# pkg: python3-ldap (double-check if we need this. pip python-ldap might be sufficient)
-# pip package python-ldap requires gcc to be installed on host where library will be installed (ansible host)
-# - unfortunately, there is no prebuilt wheel for python-ldap ; need to build python-ldap during pip install
-# ansible collections: community.general community.crypto ansible.posix ansible.utils
+## run "source env.sh" before running run-it.yml
 
-
-# Example commands:
-# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt run-it.yml -b -u ehf --vault-password-file ~/.ogpw
-# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt run-it.yml -b -u ehf --ask-vault-pass
-#
-# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt run-it.yml -b -u ehf --vault-password-file ~/.ogpw -e "copy_totp=True"
-# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt run-it.yml -b -u ehf --ask-vault-pass -e "copy_totp=True"
-#
+# Example command:
+# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook -i inventory.txt run-it.yml -b -u $USER --vault-password-file ~/.ogpw
 
 
 # Example ldapsearch command:
@@ -21,17 +11,16 @@
 #
 
 # the following should be installed on the host running the Ansible playbook:
-## 1. install ansible-core, ansible collections, and supporting roles
-## ansible-galaxy install -r requirements.yml 
+## 1. ansible collections and roles per requirements.yml (this is done with "source env.sh")
 ## 2. create ~/.ogpw for making it easier to work with Ansible vault (use ansible-vault)
 ## 3. encrypt ldap_bind auth with Ansible vault; store string in group_vars/all.yml
 ## 4. update inventory.txt to match the environment being updated 
-## 5. run "export ANSIBLE_HOST_KEY_CHECKING=False" or prepend "ANSIBLE_HOST_KEY_CHECKING=False" to Ansible command 
+## 5. run "export ANSIBLE_HOST_KEY_CHECKING=False" or prepend "ANSIBLE_HOST_KEY_CHECKING=False" to Ansible command being issued
 
 
 # fetch data from "enrollment" host
 - name: "Fetch auth data"
-  hosts: testdev2
+  hosts: enrollment_host
   vars:
     ansible_python_interpreter: /usr/bin/python3
   gather_facts: true
@@ -41,6 +30,7 @@
 # run commands locally, from the ansible host
 - name: "Deploy auth data"
   hosts: localhost
+  connection: local
   vars:
     ansible_python_interpreter: /usr/bin/python3
   gather_facts: true
