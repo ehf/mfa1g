@@ -31,8 +31,6 @@
 - name: "Deploy auth data"
   hosts: localhost
   connection: local
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
   gather_facts: true
   roles:
     - { role: deploy-auth-data, tags: deploy-auth-data }
