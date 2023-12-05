@@ -44,6 +44,17 @@
   roles:
     - { role: dist-totp-data, tags: dist-totp-data }
 
+# Install googleauthenticator and qrencode libs
+# role should run after totp files are distributed from enrollment_host
+# init-totp-data role is disabled by default with enable_totp=False
+- name: "Install totp libs and init pam.d and sshd_config"
+  hosts: sssd_client
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  gather_facts: true
+  roles:
+    - { role: init-totp-data, tags: init-totp-data }
+
 - name: "Enable sss_ssh_authorizedkeys use"
   hosts: sssd_client
   vars:
