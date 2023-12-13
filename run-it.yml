@@ -38,8 +38,6 @@
 # distribute to hosts where applicable
 - name: "Distribute totp data"
   hosts: sssd_client:!enrollment_host
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
   gather_facts: true
   roles:
     - { role: dist-totp-data, tags: dist-totp-data }
@@ -49,8 +47,6 @@
 # init-totp-data role is disabled by default with enable_totp=False
 - name: "Install totp libs and init pam.d and sshd_config"
   hosts: sssd_client:!enrollment_host
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
   gather_facts: true
   roles:
     - { role: init-totp-data, tags: init-totp-data }
